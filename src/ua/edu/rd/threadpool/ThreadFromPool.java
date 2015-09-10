@@ -1,24 +1,23 @@
-package ua.edu.rd;
+package ua.epam.rd.threadpool;
 
 public class ThreadFromPool extends Thread {
 
-	private BlockingQueue<Runnable> tasks;
+	private ThreadPool pool;
 	private volatile boolean isStoped;
 
-	public ThreadFromPool(BlockingQueue<Runnable> tasks) {
+	public ThreadFromPool(ThreadPool pool) {
 		super();
-		this.tasks = tasks;
+		this.pool = pool;
 	}
 
 	@Override
 	public void run() {
 		while (!isStoped) {
 			try {
-				Runnable task = tasks.poll();
+				Runnable task = pool.getTask();
 				if (task != null) {
 					task.run();
 				}
-
 			} catch (Exception e) {
 				System.out.println("Something happend in the task. Thread:"
 						+ Thread.currentThread().getName());
@@ -29,11 +28,11 @@ public class ThreadFromPool extends Thread {
 				+ Thread.currentThread().getName() + " terminated");
 	}
 
-	public  void terminate() {
+	public void terminate() {
 		isStoped = true;
 	}
 
-	public  boolean isStoped() {
+	public boolean isStoped() {
 		return isStoped;
 	}
 }

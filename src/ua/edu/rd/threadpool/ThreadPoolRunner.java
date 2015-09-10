@@ -1,4 +1,4 @@
-package ua.edu.rd;
+package ua.epam.rd.threadpool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class ThreadPoolRunner {
 			tasks.add(new Task("Name" + i));
 		}
 
-		ThreadPool threadPool = new ThreadPool(3);
+		ThreadPool threadPool = new ThreadPool(5);
 		threadPool.startPool();
 
 		for (Task task : tasks) {
